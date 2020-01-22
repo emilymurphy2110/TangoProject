@@ -24,5 +24,8 @@ urlpatterns = [
     url(r'^$', views.index, name='index'),
     url(r'^rango/', include('rango.urls')),
     # above maps any URLs starting with rango/ to be handled by the rango app
+    url(r'^$', views.about, name='about'),
+    url(r'^about/', include('rango.urls')),
     url(r'^admin/', admin.site.urls),
+
 ]

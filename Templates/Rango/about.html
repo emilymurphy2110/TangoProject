@@ -14,16 +14,15 @@
         <h1>Rango says...</h1>
 
         <div>
-            ...here is the about page <br/>
+            here is the about page.<br />
             <strong> {{ boldmessage }}</strong><br/>
 
-            <p>THis tutorial has been put together by Emily.</p>
         </div>
 
         <div>
-            <a href="/rango/">Index</a><br/>
+            <a href="/rango/">Index</a><br />
             <img src="{% static 'images/hayley.jpg' %}" alt ="Picture of hayley williams" />
-            <img src="{{MEDIA_URL}}cat.jpg" alt ="Picture of a cat" />
+            <img src="{{ MEDIA_URL }}cat.jpg" alt ="Picture of a cat." />
         </div>
     </body>
 

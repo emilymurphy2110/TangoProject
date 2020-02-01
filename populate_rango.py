@@ -1,8 +1,8 @@
 import os
+
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'tango_with_django_project.settings')
 
 import django
-
 django.setup()
 from rango.models import Category, Page
 
@@ -16,13 +16,13 @@ def populate():
 
     python_pages = [
         {'title': 'Official Python Tutorial',
-         'url': 'http://docs.python.org/3/tutorial',
+         'url': 'http://docs.python.org/3/tutorial/',
          'views': 234},
         {'title': 'How to Think like a Computer Scientist',
          'url': 'http://www.greenteapress.com/thinkpython/',
          'views': 67},
         {'title': 'Learn Python in 10 Minutes',
-         'url': 'http://www.korokithakis.net/tutorials/python',
+         'url': 'http://www.korokithakis.net/tutorials/python/',
          'views': 23}
     ]
 

@@ -3,7 +3,6 @@ from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm
 from django.shortcuts import redirect, render
 
-
 from django.http import HttpResponse
 
 
@@ -39,8 +38,8 @@ def show_category(request, category_name_slug):
         context_dict['pages'] = pages
         context_dict['category'] = category
     except Category.DoesNotExist:
-        context_dict['category'] = None
         context_dict['pages'] = None
+        context_dict['category'] = None
 
     return render(request, 'rango/category.html', context=context_dict)
 

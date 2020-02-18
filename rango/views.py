@@ -2,8 +2,9 @@ from django.urls import reverse
 from rango.models import Category, Page
 from rango.forms import CategoryForm, PageForm, UserForm, UserProfileForm
 from django.shortcuts import redirect, render
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 
 
 def index(request):
@@ -44,6 +45,7 @@ def show_category(request, category_name_slug):
     return render(request, 'rango/category.html', context=context_dict)
 
 
+@login_required
 def add_category(request):
     form = CategoryForm()
 
@@ -68,6 +70,7 @@ def add_category(request):
     return render(request, 'rango/add_category.html', {'form': form})
 
 
+@login_required
 def add_page(request, category_name_slug):
     try:
         category = Category.objects.get(slug=category_name_slug)
@@ -131,9 +134,10 @@ def register(request):
                            'profile_form': profile_form,
                            'registered': registered})
 
+
 def user_login(request):
     # If the request is a HTTP POST, try to pull out the relevant information.
-    if request.method =='POST':
+    if request.method == 'POST':
         # Gather the username and password provided by the user. # This information is obtained from the login form.
         # We use request.POST.get('<variable>') as opposed
         # to request.POST['<variable>'], because the
@@ -153,8 +157,8 @@ def user_login(request):
         if user:
             # is the account active? it could have been disabled.
             if user.is_active:
-                 # If the account is valid and active, we can log the user in.
-                 # We'll send the user back to the homepage.
+                # If the account is valid and active, we can log the user in.
+                # We'll send the user back to the homepage.
                 login(request, user)
                 return redirect(reverse('rango:index'))
             else:
@@ -169,3 +173,18 @@ def user_login(request):
     else:
         # no context variables to pass to the template system, hence the blank dict object..
         return render(request, 'rango/login.html')
+
+
+@login_required
+def restricted(request):
+    return render(request, 'rango/restricted.html')
+
+
+# Use the login_required() decorator to ensure only those logged in can access the view.
+@login_required
+def user_logout(request):
+    # since we know the user is logged in we can now just log them out
+    logout(request)
+    # take the user back to the homepage
+    return redirect(reverse('rango:index'))
+
